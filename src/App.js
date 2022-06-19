@@ -4,7 +4,10 @@ import Wall from './components/wall';
 
 function App() {
   return (
-    <Wall/>
+    <div>
+      <Wall></Wall>
+    </div>
+    
   );
 }
 

@@ -16,19 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from dj_rest_auth.registration.views import SocialLoginView
-from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
-from dj_rest_auth.social_serializers import TwitterLoginSerializer
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-
-class FacebookLogin(SocialLoginView):
-    adapter_class = FacebookOAuth2Adapter
-
-class TwitterLogin(SocialLoginView):
-    serializer_class = TwitterLoginSerializer
-    adapter_class = TwitterOAuthAdapter
 
 class GoogleLogin(SocialLoginView): # if you want to use Authorization Code Grant, use this
     adapter_class = GoogleOAuth2Adapter
@@ -41,7 +31,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('dj-rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
-    path('dj-rest-auth/twitter/', TwitterLogin.as_view(), name='twitter_login'),
-    path('dj-rest-auth/google/', GoogleLogin.as_view(), name='google_login')
+    path('dj-rest-auth/google/', GoogleLogin.as_view(), name='google_login'),
+    path('api/', include('djangoApp.urls')),
 ]
