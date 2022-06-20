@@ -200,3 +200,7 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CELERY_BROKER_URL = 'amqp://localhost'
+
+USE_TZ = True
+TIME_ZONE = 'Asia/Kolkata'
