@@ -7,9 +7,10 @@ from rest_framework import authentication, permissions
 from .models import Document, Keyword
 from django.core.exceptions import PermissionDenied
 from datetime import datetime
-from .tasks import create_keywords
+from .tasks import create_keywords, update_keywords, delete_keywords
 from rest_framework.decorators import action
 from collections import Counter
+from pymongo import MongoClient
 # Create your views here.
 
 class DocumentList(APIView):
@@ -20,7 +21,7 @@ class DocumentList(APIView):
         serializer = DocumentSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            create_keywords.delay(data['Title'], data['Text'])
+            create_keywords.delay(data['Title'], data['Text'], serializer.data['id'])
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
@@ -55,6 +56,7 @@ class DocumentSingle(APIView):
         data['Update_Datetime'] = datetime.now()
         serializer = DocumentSerializer(doc, data=data)
         if serializer.is_valid():
+            update_keywords.delay(data['Title'], data['Text'], doc.Title, doc.Text, doc.id)
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
@@ -62,6 +64,7 @@ class DocumentSingle(APIView):
     @action(detail = True,permission_classes = [permissions.IsAuthenticated])
     def delete(self, request, pk):
         doc = self.mycheck(pk)
+        delete_keywords.delay(doc.Title, doc.Text, doc.id)
         doc.delete()
         return JsonResponse({}, status=204)
 
@@ -75,7 +78,7 @@ class SearchApi(APIView):
         Qkeys += Counter(data)
         Qkeys += Counter([data[i] + " " + data[i+1] for i in range(n-1)])
         Qkeys += Counter([data[i] + " " + data[i+1] + " " + data[i+2] for i in range(n-2)])
-        print(Qkeys)
+        # print(Qkeys)
 
         recorded_Qkeys = {}
         for k in Qkeys.keys():
@@ -85,7 +88,31 @@ class SearchApi(APIView):
             except : 
                 pass
 
-        return JsonResponse(recorded_Qkeys)            
+        # return JsonResponse(recorded_Qkeys)  4
+        ans = []
+        with MongoClient('mongodb://localhost:27017/') as connection:
+            myCollection = connection.searchDocumentsDB.Maps
+            for obj in Document.objects.all():
+                temp = 0
+                for text, index in recorded_Qkeys.items():
+                    t = myCollection.find_one({"_id":obj.id, str(index) : {"$exists" : True}})
+                    if not t == None:
+                        temp += t[str(index)]
+                if not temp == 0:
+                    ans.append([temp, obj.id])
+                if len(ans) > 10:
+                    i = 0
+                    for j in range(11):
+                        if ans[j][0] < ans[i][0]:
+                            i = j
+                    del ans[i]
+        return JsonResponse({"suggestion" : [v[1] for v in ans]})
+
+
+class SearchClick(APIView):
+    def get(self, request):
+        pass
+
 
 
 
