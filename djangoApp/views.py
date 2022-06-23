@@ -4,10 +4,10 @@ from rest_framework.parsers import JSONParser
 from .serializers import DocumentSerializer
 from django.http import JsonResponse, Http404, HttpResponseForbidden
 from rest_framework import authentication, permissions
-from .models import Document, Keyword
+from .models import Document, Keyword, TrendingDocument
 from django.core.exceptions import PermissionDenied
 from datetime import datetime
-from .tasks import create_keywords, update_keywords, delete_keywords
+from .tasks import create_keywords, update_keywords, delete_keywords, update_history
 from rest_framework.decorators import action
 from collections import Counter
 from pymongo import MongoClient
@@ -111,8 +111,33 @@ class SearchApi(APIView):
 
 class SearchClick(APIView):
     def get(self, request):
-        pass
+        try:
+            pk = int(request.GET['doc'])
+            doc = Document.objects.get(id=pk)
+        except:
+            raise Http404
+        serializer = DocumentSerializer(doc)
+        if not request.GET['query'] == "":
+            if request.user.is_anonymous:
+                update_history.delay(pk, sq = request.GET['query'], userid = 0)
+            else :
+                update_history.delay(pk, sq = request.GET['query'], userid = request.user.id)
+        return JsonResponse({
+            "Title" : serializer.data['Title'], 
+            "Text" : serializer.data['Text']
+        })
 
-
-
-
+class Trends(APIView):
+    def get(self, request):
+        trends = []
+        for obj in TrendingDocument.objects.all():
+            trends.append([obj.Clicks_total, obj.Doc.id])
+            if len(trends) > 10:
+                min_i = 0
+                for j in range(11):
+                    if trends[min_i][0] > trends[j][0]:
+                        min_i = j
+                del trends[min_i]
+        return JsonResponse({
+            "trends" : [v[1] for v in trends]
+        })

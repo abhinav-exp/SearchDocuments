@@ -28,8 +28,8 @@ class Keyword(models.Model):
 
 class TrendingDocument(models.Model):
     Doc = models.OneToOneField(Document, on_delete = models.CASCADE)
-    Clicks_quarter1 = models.BigIntegerField()
-    Clicks_quarter2 = models.BigIntegerField()
-    Clicks_quarter3 = models.BigIntegerField()
-    Clicks_quarter4 = models.BigIntegerField()
-    Clicks_total = models.BigIntegerField() 
+    Clicks_quarter1 = models.BigIntegerField(default = 0)
+    Clicks_quarter2 = models.BigIntegerField(default = 0)
+    Clicks_quarter3 = models.BigIntegerField(default = 0)
+    Clicks_quarter4 = models.BigIntegerField(default = 0)
+    Clicks_total = models.BigIntegerField(default = 0) 

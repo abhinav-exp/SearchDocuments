@@ -1,9 +1,13 @@
 from celery import shared_task
 from collections import Counter
-from .models import Keyword
+from .models import Document, Keyword, History, TrendingDocument
 import os
 from pymongo import MongoClient
 from bson.json_util import dumps, loads
+from django.contrib.auth import get_user_model
+
+User=get_user_model()
+
 
 @shared_task
 def add(x, y):
@@ -102,3 +106,26 @@ def update_keywords(title_new, text_new, title_old, text_old, optid):
         mydb = connection.searchDocumentsDB
         myCollection = mydb.Maps
         myCollection.find_one_and_update({'_id': optid}, {"$set":mongodoc, "$unset" : myDocJson})
+
+@shared_task
+def update_history(optid, sq, userid):
+    doc = Document.objects.get(id = optid)
+    if userid == 0:
+        h = History.objects.create(Doc = doc, SearchQuery = sq)
+        h.save()
+    else:
+        user = User.objects.get(id = userid)
+        h = History.objects.create(Doc = doc, SearchQuery = sq, Read_by = user)
+        h.save()
+
+    try : 
+        t = TrendingDocument.objects.get(Doc = doc)
+        t.Clicks_quarter1 = t.Clicks_quarter1 + 1
+        t.Clicks_total = t.Clicks_total + 1
+        t.save()
+    except:
+        t = TrendingDocument.objects.create(Doc = doc, Clicks_quarter1 = 1, Clicks_total = 1)
+        t.save()
+
+
+    

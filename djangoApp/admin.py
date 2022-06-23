@@ -14,4 +14,6 @@ class HistoryAdmin(admin.ModelAdmin):
     list_display = ['Doc', 'Read_by', 'DateandTime', 'SearchQuery']
 admin.site.register(History, HistoryAdmin)
 
-admin.site.register(TrendingDocument)
+class TrendingAdmin(admin.ModelAdmin):
+    list_display = ['Doc', 'Clicks_quarter1', 'Clicks_quarter2', 'Clicks_quarter3', 'Clicks_quarter4', 'Clicks_total']
+admin.site.register(TrendingDocument, TrendingAdmin)
