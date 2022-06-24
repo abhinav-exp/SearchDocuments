@@ -25,26 +25,31 @@
     margin-top: 40vh;
 }
 
-.MainScreen{
-    /* height: 70vh; */
-}
-
 .leftpart{
     float: left;
     width: 20vw;
 }
 
 .rightpart{
-    width: 80vw;
+    width: 100vw;
     float: left;
 }
 
-.SideBar{
-    background-color: violet;
-    height: 100vh;
-    padding: 5% 5%;
+.NavBar{
+    background-color: white;
+    border-radius: 1vh;
+    /* height: 100vh; */
+    /* padding: 5% 5%; */
+    float: left;
+    width: 50vw;
 }
 
 .towardsright{
     float: right;
+}
+
+.Name-box{
+    float: left;
+    margin-right: 2vw;
+    margin-top: 0.5vh;
 }
