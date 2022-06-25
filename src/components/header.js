@@ -51,22 +51,22 @@ function NavBar(props)
 {
     return (
         <div className = 'NavBar'>
-            <ul class="nav">
-                <li class="nav-item">
+            <ul className="nav">
+                <li className="nav-item">
                     <Link className='nav-link' to="/">Home</Link>   
                 </li>
-                <li class="nav-item">
-                    <Link class="nav-link" to="/trends">Trends</Link>
+                <li className="nav-item">
+                    <Link className="nav-link" to="/trends">Trends</Link>
                 </li>
                 {
                     props.CookieManager[0]['authcookie'] !== undefined ?
-                    <li class="nav-item">
-                        <Link class="nav-link" to="/yours">Your Documents</Link>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/yours">Your Documents</Link>
                     </li> : <div></div>
                 }
                 
-                {/* <li class="nav-item">
-                    <a class="nav-link disabled" href="/">Disabled</a>
+                {/* <li className="nav-item">
+                    <a className="nav-link disabled" href="/">Disabled</a>
                 </li> */}
             </ul>
         </div>

@@ -15,6 +15,12 @@ from pymongo import MongoClient
 
 class DocumentList(APIView):
     permission_classes = [permissions.IsAuthenticated]
+    def get(self, request):
+        data = [{"Title" : d.Title, "Text": d.Text} for d in Document.objects.all().filter(Author = request.user)]
+        return JsonResponse({
+            "list" : data
+        })
+
     def post(self, request):
         data = JSONParser().parse(request)
         data['Author'] = request.user.id
