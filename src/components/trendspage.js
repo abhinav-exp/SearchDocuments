@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState  } from 'react';
+import {Link } from "react-router-dom";
 
 function TrendCard(props)
 {
@@ -13,18 +14,20 @@ function TrendCard(props)
         })
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
     return (
-        <div className="card text-center mycard">
-            {/* <div className="card-header">
-            </div> */}
-            <div className="card-body">
-                <h5 className="card-title">{data.Title}</h5>
-                <p className="card-text">{data.Text}</p>
-                <a href="/" className="btn btn-primary">Go somewhere</a>
-            </div>
-            {/* <div className="card-footer text-muted">
-                {/* {data} */}
-            {/* </div> */} 
+        <div>
+            {
+                data.Title !== undefined ?
+                <div className="card text-center mycard">
+                    <div className="card-body">
+                        <h5 className="card-title">{data.Title}</h5>
+                        <p className="card-text">{data.Text.substring(0, 300) + 
+                            (data.Text.length > 300 ? "....." : "")}</p>
+                        <Link to = {"/read/"+props.optid} className="btn btn-primary">Read Complete Document</Link>
+                    </div>
+                </div> : <div></div>
+            }
         </div>
+        
     )
 }
 
@@ -42,7 +45,7 @@ function TrendScreen()
         
     return (
         <div className="container">
-            {arr.map(r => (<TrendCard optid = {r}></TrendCard>))}
+            {arr.length !== 0 ? arr.map(r => (<TrendCard optid = {r}></TrendCard>)) : <div className='alert alert-primary'>No Trends to show</div>}
         </div>
     )
 }

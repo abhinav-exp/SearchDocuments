@@ -19,10 +19,15 @@
     /* width: 70vh; */
 }
 
+.MainScreen{
+    padding-top: 10vh;
+}
+
 .searchBar{
     width: 50vw;
     margin: auto;
-    margin-top: 40vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 
 .leftpart{
@@ -56,4 +61,35 @@
 
 .mycard{
     margin: 2vh;
+}
+
+.mybtn{
+    margin: 0 5vw;
+}
+
+.btnNew{
+    margin-left: 60vw;
+    /* margin-right: 25vw; */
+    margin-top: 2vh;
+}
+
+.card-title{
+    color: black;
+}
+
+.card-text{
+    color: gray;
+}
+
+.alert-primary{
+    margin: auto;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.textlogo{
+    margin-left: 25vw;
+    font-family: 'League Gothic', sans-serif;
+    font-size: 20vh;
+    color: royalblue
 }

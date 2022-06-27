@@ -16,7 +16,7 @@ from pymongo import MongoClient
 class DocumentList(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
-        data = [{"Title" : d.Title, "Text": d.Text} for d in Document.objects.all().filter(Author = request.user)]
+        data = [{"id": d.id, "Title" : d.Title, "Text": d.Text} for d in Document.objects.all().filter(Author = request.user).order_by('-id')]
         return JsonResponse({
             "list" : data
         })
@@ -112,6 +112,7 @@ class SearchApi(APIView):
                         if ans[j][0] < ans[i][0]:
                             i = j
                     del ans[i]
+        ans.sort(reverse = True)
         return JsonResponse({"suggestion" : [v[1] for v in ans]})
 
 
@@ -144,6 +145,9 @@ class Trends(APIView):
                     if trends[min_i][0] > trends[j][0]:
                         min_i = j
                 del trends[min_i]
+        print(trends)
+        trends.sort(reverse = True)
+        print(trends)
         return JsonResponse({
             "trends" : [v[1] for v in trends]
         })
