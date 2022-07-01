@@ -105,6 +105,15 @@ function SearchScreen()
     )
 }
 
+function Notfoundscreen()
+{
+    return (
+        <div className='MainScreen'>
+            <div className='alert alert-danger container'>Not Found 404</div>
+        </div>
+    )
+}
+
 function Wall()
 {    
     const CookieManager = useCookies();
@@ -128,6 +137,8 @@ function Wall()
                         <Route path="update/:optid" element={<UpdateScreen></UpdateScreen>} ></Route>
                         <Route path="delete/:optid" element={<DeleteScreen></DeleteScreen>} ></Route>
                         <Route path="show/:optid" element={<ShowScreen></ShowScreen>} ></Route>
+                        <Route path=":anything" element={<Notfoundscreen></Notfoundscreen>} ></Route>
+                        <Route path=":v1/:v2" element={<Notfoundscreen></Notfoundscreen>} ></Route>
                     </Routes>
                 </BrowserRouter>
             </div>
