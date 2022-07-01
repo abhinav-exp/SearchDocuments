@@ -11,7 +11,22 @@ from .tasks import create_keywords, update_keywords, delete_keywords, update_his
 from rest_framework.decorators import action
 from collections import Counter
 from pymongo import MongoClient
+from django.conf import settings
+from django.http import FileResponse
+import os
 # Create your views here.
+
+def favicon_view(request):
+    file_path = os.path.join(settings.BASE_DIR, 'build', 'favicon.ico')
+    file_obj = open(file_path, 'rb')
+    response = FileResponse(file_obj)
+    return response
+
+def logo192_view(request):
+    file_path = os.path.join(settings.BASE_DIR, 'build', 'logo192.png')
+    file_obj = open(file_path, 'rb')
+    response = FileResponse(file_obj)
+    return response
 
 class DocumentList(APIView):
     permission_classes = [permissions.IsAuthenticated]
