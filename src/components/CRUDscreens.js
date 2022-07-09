@@ -249,7 +249,7 @@ function ShowScreen()
     } : {})
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACKEND_URL+'api/click?query='+searchParams.get('query')+"&doc="+params.optid,
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/click/?query='+searchParams.get('query')+"&doc="+params.optid,
             config)
             .then(r => {
                 console.log(r.data);

@@ -92,7 +92,6 @@ class DocumentSingle(APIView):
 class SearchApi(APIView):
     def get(self, request):
         query = request.GET['query'].lower()
-
         Qkeys = Counter()
         data = query.split()
         n = len(data)

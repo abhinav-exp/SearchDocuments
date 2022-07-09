@@ -86,7 +86,7 @@ function SearchScreen()
     } : {})
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACKEND_URL+'api/search?query='+params.query,
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/search/?query='+params.query,
         config)
         .then(r => {
             console.log(r.data.suggestion)
