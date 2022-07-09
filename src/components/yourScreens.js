@@ -38,7 +38,7 @@ function MyScreen()
     };  
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/document/',
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/',
         config)
         .then(r => {
             setarr(r.data.list);

@@ -40,7 +40,7 @@ function ClickTab(props)
     const [data, setdata] = useState({});
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/document/'+props.optid+"/")
+        axios.get(process.env.REACT_APP_BACKEND_URL+'/api/document/'+props.optid+"/")
         .then(r => {
             setdata(r.data);
             console.log(r.data);
@@ -86,7 +86,7 @@ function SearchScreen()
     } : {})
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/search?query='+params.query,
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/search?query='+params.query,
         config)
         .then(r => {
             console.log(r.data.suggestion)

@@ -23,7 +23,7 @@ function NewScreen()
             Text : formtext
         };
         // console.log(e)
-        axios.post('http://localhost:8000/api/document/',postdata, config)
+        axios.post(process.env.REACT_APP_BACKEND_URL+'api/document/',postdata, config)
         .then(r => {
             console.log(r)
             changesucessbool(true);
@@ -77,7 +77,7 @@ function UpdateScreen()
     };  
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/document/'+params.optid,
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid,
             config)
             .then(r => {
                 console.log(r.data);
@@ -93,7 +93,7 @@ function UpdateScreen()
             Text : formtext
         };
         // console.log(e)
-        axios.put('http://localhost:8000/api/document/'+params.optid+'/',
+        axios.put(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid+'/',
             postdata, config)
         .then(r => {
             console.log(r)
@@ -149,7 +149,7 @@ function DeleteScreen()
     };  
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/document/'+params.optid,
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid,
             config)
             .then(r => {
                 console.log(r.data);
@@ -161,7 +161,7 @@ function DeleteScreen()
     const onSubmitClick = () => {
         console.log(token)
         // console.log(e)
-        axios.delete('http://localhost:8000/api/document/'+params.optid+'/',
+        axios.delete(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid+'/',
             config)
         .then(r => {
             console.log(r)
@@ -208,7 +208,7 @@ function ReadScreen()
     const [formtext, changeformtext] = useState("");
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/document/'+params.optid)
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid)
             .then(r => {
                 console.log(r.data);
                 changeformtitle(r.data.Title);
@@ -249,7 +249,7 @@ function ShowScreen()
     } : {})
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/click?query='+searchParams.get('query')+"&doc="+params.optid,
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/click?query='+searchParams.get('query')+"&doc="+params.optid,
             config)
             .then(r => {
                 console.log(r.data);
