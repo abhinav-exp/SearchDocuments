@@ -7,7 +7,7 @@ function TrendCard(props)
     const [data, setdata] = useState({});
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/document/'+props.optid+"/")
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+props.optid+"/")
         .then(r => {
             setdata(r.data);
             console.log(r.data);
@@ -36,7 +36,7 @@ function TrendScreen()
     const [arr, setarr] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/trends/')
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/trends/')
         .then(r => {
             setarr(r.data.trends);
             console.log(arr);

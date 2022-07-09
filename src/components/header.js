@@ -7,7 +7,7 @@ function MyCustomButton(props)
     const login = useGoogleLogin({
         onSuccess : tokenResponse => {
             console.log(tokenResponse);
-            axios.post('http://localhost:8000/dj-rest-auth/google/', {
+            axios.post(process.env.REACT_APP_BACKEND_URL+'dj-rest-auth/google/', {
                 access_token: tokenResponse.access_token,
             })
             .then(r => {
