@@ -13,7 +13,12 @@ function MyCustomButton(props)
             .then(r => {
                 props.CookieManager[1]('authcookie', r.data);
             });
+        },
+        onError : err => {
+            console.log("not logged in");
+            console.log(err)
         }
+        // add both domain and domain:port in origins at google credentails
     });
     return (
         <button type="button" className="btn btn-primary towardsright" onClick={login}>
