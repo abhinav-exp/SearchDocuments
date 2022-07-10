@@ -40,7 +40,7 @@ function ClickTab(props)
     const [data, setdata] = useState({});
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACKEND_URL+'/api/document/'+props.optid+"/")
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+props.optid+"/")
         .then(r => {
             setdata(r.data);
             console.log(r.data);
