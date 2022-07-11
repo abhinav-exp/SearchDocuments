@@ -26,7 +26,7 @@ import os
 
 class GoogleLogin(SocialLoginView): # if you want to use Authorization Code Grant, use this
     adapter_class = GoogleOAuth2Adapter
-    callback_url = os.environ['BACKEND_URL'] + '/accounts/google/login/callback/'
+    callback_url = os.environ['BACKEND_URL'] + 'accounts/google/login/callback/'
     client_class = OAuth2Client
 
 urlpatterns = [
