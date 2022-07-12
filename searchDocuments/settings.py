@@ -184,7 +184,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SITE_ID = 2
+SITE_ID = 3
 
 # Provider specific settings
 # SOCIALACCOUNT_PROVIDERS = {
