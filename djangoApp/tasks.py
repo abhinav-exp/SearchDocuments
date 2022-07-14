@@ -5,6 +5,7 @@ import os
 from pymongo import MongoClient
 from bson.json_util import dumps, loads
 from django.contrib.auth import get_user_model
+from searchDocuments.celery import app
 
 User=get_user_model()
 
@@ -128,4 +129,16 @@ def update_history(optid, sq, userid):
         t.save()
 
 
+@app.task()
+def remove_old_trends():
+    # print("old trends called")
+    allobjs = TrendingDocument.objects.all()
+
+    for obj in allobjs:
+        obj.Clicks_total = obj.Clicks_total - obj.Clicks_quarter4
+        obj.Clicks_quarter4 = obj.Clicks_quarter3
+        obj.Clicks_quarter3 = obj.Clicks_quarter2
+        obj.Clicks_quarter2 = obj.Clicks_quarter1
+        obj.Clicks_quarter1 = 0
+        obj.save()
     
