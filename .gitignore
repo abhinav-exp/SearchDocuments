@@ -29,3 +29,6 @@ __pycache__/
 
 staticfiles/
 searchDocuments/__pycache__/
+
+db.sqlite3
+celerybeat-schedule
