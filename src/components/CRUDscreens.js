@@ -77,7 +77,7 @@ function UpdateScreen()
     };  
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid,
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid + '/',
             config)
             .then(r => {
                 console.log(r.data);
@@ -149,7 +149,7 @@ function DeleteScreen()
     };  
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid,
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid + '/',
             config)
             .then(r => {
                 console.log(r.data);
@@ -208,7 +208,7 @@ function ReadScreen()
     const [formtext, changeformtext] = useState("");
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid)
+        axios.get(process.env.REACT_APP_BACKEND_URL+'api/document/'+params.optid + '/')
             .then(r => {
                 console.log(r.data);
                 changeformtitle(r.data.Title);
