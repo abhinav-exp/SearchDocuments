@@ -9,6 +9,7 @@ import {NewScreen, UpdateScreen, DeleteScreen, ReadScreen, ShowScreen} from './C
 import { useEffect, useState } from 'react';
 import {Link } from "react-router-dom";
 import axios from 'axios';
+import logo from '../sslogo.png';
 
 function SearchButton(props)
 {
@@ -29,7 +30,7 @@ function MainScreen()
 {
     return (
         <div className='MainScreen'>
-            <h1 className='textlogo'>SearchDocuments</h1>
+            <img className='textlogo' src = {logo} alt = 'Search Documents Logo'></img>
             <SearchButton></SearchButton>
         </div>
     )

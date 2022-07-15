@@ -89,7 +89,9 @@
 
 .textlogo{
     margin-left: 25vw;
-    font-family: 'League Gothic', sans-serif;
-    font-size: 20vh;
-    color: royalblue
+    /* font-family: 'League Gothic', sans-serif; */
+    /* font-size: 20vh; */
+    /* color: royalblue */
+    height: 20vh;
+    width: 50vw;
 }
