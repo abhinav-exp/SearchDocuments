@@ -38,5 +38,5 @@ urlpatterns = [
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('dj-rest-auth/google/', GoogleLogin.as_view(), name='google_login'),
     path('api/', include('djangoApp.urls')),
-    re_path('.*/', TemplateView.as_view(template_name = "index.html")),
+    # re_path('.*/', TemplateView.as_view(template_name = "index.html")),
 ]
